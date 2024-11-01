@@ -1,0 +1,121 @@
+type User {
+  id: Int!
+  role: String
+  username: String
+  password: String
+  mail: String
+  player: Player
+}
+
+type Player {
+  id: Int!
+  xp: Int
+  level: Int
+  money: Int
+  skin_money: Int
+  secure: Boolean
+  pity_b: Int
+  pity_s: Int
+  pity_f: Int
+  icon_id_character: Int
+  banner_id_character: Int
+  is_daily_done: Boolean
+  is_hourly_done: Boolean
+  user: User
+  inventory: [Inventory]
+  pull_history: [PullHistory]
+}
+
+type Inventory {
+  id_player: Int!
+  id_character: Int!
+  lootable: Lootable
+}
+
+type PullHistory {
+  id_player: Int!
+  lootable: Lootable
+  player: Player
+}
+
+interface Lootable {
+  id: Int!
+  name: String!
+  rarity: Int!
+  limited: Boolean!
+}
+
+type Characters{
+    id: Int!
+    name: String!
+    rarity: Int!     
+    limited: Boolean!     
+    cardSplashartString: String
+    bannerSplashartString: String
+    media: Media       
+    skins: Skin 
+}
+
+
+type Media {
+  id: Int!
+  name: String
+  img: String
+}
+
+type Skin{
+  id: Int!
+  name: String!
+  rarity: Int!
+  limited: Boolean!
+  cardSplashartString: String
+  bannerSplashartString: String
+  character: Characters
+}
+
+type Banner {
+  id: Int!
+  lootable: Lootable
+}
+
+type GameMode {
+  id: Int!
+  name: String
+  status: Boolean
+  img: String
+  base_reward: Int
+}
+
+type Game {
+  id: Int!
+  id_game_mode: Int
+  start_time: String
+  on_going: Boolean
+  nb_player: Int
+  game_mode: GameMode
+  player_game_data: [PlayerGameData]
+}
+
+type GameData {
+  id_game: Int!
+  answer: String
+  additional_answers: String
+  already_played: Boolean
+  start_time: String
+}
+
+type PlayerGameData {
+  id_game: Int!
+  id_player: Int!
+  correct: Boolean
+  skipped: Boolean
+  nb_correct: Int
+}
+
+type Query {
+  getUserById(id: Int!): User
+  getAllUsers: [User]
+  getAllCharacters: [Characters]
+  getAllMedia: [Media]
+  getAllSkins: [Skin]
+}

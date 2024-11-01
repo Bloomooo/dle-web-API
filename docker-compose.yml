@@ -1,0 +1,19 @@
+services:
+  db:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 'root'
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./animedle.sql:/docker-entrypoint-initdb.d/animedle.sql
+  phpmyadmin:
+     image: phpmyadmin/phpmyadmin:latest
+     container_name: phpmyadmin
+     environment:
+       PMA_USER: root
+       PMA_PASSWORD: root
+       UPLOAD_LIMIT: 20M
+     ports:
+     - "8899:80"
